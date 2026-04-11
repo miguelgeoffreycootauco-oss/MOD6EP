@@ -15,8 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from tapasapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.login, name='login'),
+    path('', views.login_view, name='login'),
+    path('signup/', views.signup_view, name='signup'),
+    path('menu/', views.better_menu, name='better_menu'),
+    path('menu/add/', views.add_menu, name='add_menu'),
+    path('menu/<int:pk>/', views.view_detail, name='view_detail'),
+    path('menu/<int:pk>/delete/', views.delete_dish, name='delete_dish'),
+    path('menu/<int:pk>/update/', views.update_dish, name='update_dish'),  
 ]

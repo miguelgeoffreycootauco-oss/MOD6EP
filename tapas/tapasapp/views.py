@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Dish 
+from .models import Account
 
 # Create your views here.
 
@@ -36,10 +37,30 @@ def update_dish(request, pk):
         d = get_object_or_404(Dish, pk=pk)
         return render(request, 'tapasapp/update_menu.html', {'d':d})
 
-def login(request):
-    login = Account.objects.filter(name=request.POST.get('username'), password=request.POST.get('password'))
-    if login:
-        return redirect('better_menu')
-    else:
-        return render(request, 'tapasapp/login.html')
-    
+def login_view(request):
+    error_message = None
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if Account.objects.filter(username=username, password=password).exists():
+            return redirect('better_menu')
+        else:
+            error_message = 'Invalid username or password. Please try again.'
+    return render(request, 'tapasapp/login.html', {'error_message': error_message})
+
+def signup_view(request):
+    error_message = None
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if Account.objects.filter(username=username).exists():
+            error_message = 'Username already exists.'
+        else:
+            Account.objects.create(username=username, password=password)
+            error_message = 'Account created successfully. Please log in.'
+            return redirect('login')
+
+    return render(request, 'tapasapp/signup.html', {'error_message': error_message})

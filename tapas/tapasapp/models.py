@@ -12,7 +12,7 @@ class Dish(models.Model):
         return str(self.pk) + ": " + self.name
 
 class Account(models.Model):
-    name = models.CharField(max_length=300)
+    username = models.CharField(max_length=300, null = True, unique=True)
     password = models.CharField(max_length=300)
     objects = models.Manager()
 
