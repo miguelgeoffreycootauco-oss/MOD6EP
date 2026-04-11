@@ -47,7 +47,7 @@ def login_view(request):
         if Account.objects.filter(username=username, password=password).exists():
             return redirect('better_menu')
         else:
-            error_message = 'Invalid username or password. Please try again.'
+            error_message = 'Invalid login.'
     return render(request, 'tapasapp/login.html', {'error_message': error_message})
 
 def signup_view(request):
@@ -57,10 +57,10 @@ def signup_view(request):
         password = request.POST.get('password')
 
         if Account.objects.filter(username=username).exists():
-            error_message = 'Username already exists.'
+            error_message = 'Account already exists.'
         else:
             Account.objects.create(username=username, password=password)
-            error_message = 'Account created successfully. Please log in.'
+            error_message = 'Account created successfully.'
             return redirect('login')
 
     return render(request, 'tapasapp/signup.html', {'error_message': error_message})

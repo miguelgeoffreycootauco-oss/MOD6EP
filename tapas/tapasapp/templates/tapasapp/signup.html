@@ -1,21 +1,36 @@
-<form method = "POST" action="{% url 'signup' %}" class = "card p-4 shadow">
-    {% csrf_token %} <h3 class = "text-center"> Create Account</h3>
-    
-    {% if error%} 
-        <div class="alert alert-warning" role="alert"> {{ error }} </div> 
-    {% endif %}
-            
-    <div class="form-group mb-3"></div>
-        <label> Username: </label>
-        <input type="text" name = "username" class="form-control" required>
+{% extends 'tapasapp/base.html' %}
+
+{% block content %}
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="p-3 text-white text-center" style="background-color: #590404; border-radius: 5px 5px 0 0;">
+        <h4 class="mb-0">Create Account</h4>
     </div>
 
-    <div class="form-group mb-3">
-        <label> Password: </label>
-        <input type="password" name = "password" class="form-control" required>
+    <div class="p-4 border bg-white" style="border-radius: 0 0 5px 5px;">
+        {% if error_message %}
+            <div class = "alert {% if 'success' in error_message %}alert-success{% else %}alert-danger{% endif %} text-center"> {{error_message}}  </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn text-white w-100" style="background-color: #590404;">
+                Register
+            </button>
+        </form>
+
+        <div class="mt-3 text-center">
+            <a href="{% url 'login' %}" class="text-decoration-none" style="color: #590404;">
+                <i class="material-icons" style="vertical-align: middle;">arrow_back</i> Back to Login
+            </a>
+        </div>
     </div>
-
-    <button type="submit" class="mt-3 btn btn-primary">Signup</button>
-
-    <a href = "{% url 'login' %}" class = "mt-3 btn btn-secondary">Login</a>
-</form>                
+</div>
+{% endblock %}
