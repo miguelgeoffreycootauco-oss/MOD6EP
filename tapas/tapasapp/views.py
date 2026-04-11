@@ -35,3 +35,11 @@ def update_dish(request, pk):
     else:
         d = get_object_or_404(Dish, pk=pk)
         return render(request, 'tapasapp/update_menu.html', {'d':d})
+
+def login(request):
+    login = Account.objects.filter(name=request.POST.get('username'), password=request.POST.get('password'))
+    if login:
+        return redirect('better_menu')
+    else:
+        return render(request, 'tapasapp/login.html')
+    
