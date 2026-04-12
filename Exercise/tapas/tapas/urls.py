@@ -21,9 +21,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login_view, name='login'),
     path('signup/', views.signup_view, name='signup'),
-    path('menu/', views.better_menu, name='better_menu'),
-    path('menu/add/', views.add_menu, name='add_menu'),
+    path('basic_list/<int:pk>/', views.better_menu, name='better_menu'),
     path('menu/<int:pk>/', views.view_detail, name='view_detail'),
     path('menu/<int:pk>/delete/', views.delete_dish, name='delete_dish'),
     path('menu/<int:pk>/update/', views.update_dish, name='update_dish'),  
+    path('manage_account/<int:pk>/', views.manage_account, name='manage_account'),
+    path('add_menu/', views.add_menu, name='add_menu'),
 ]

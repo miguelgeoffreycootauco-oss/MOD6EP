@@ -5,8 +5,8 @@ from .models import Account
 # Create your views here.
 
 
-def better_menu(request):
-    account = get_object_or_404(Account, pk = pk) 
+def better_menu(request, pk):
+    account = get_object_or_404(Account, pk=pk) 
     dish_objects = Dish.objects.all()
     return render(request, 'tapasapp/better_list.html', {'dishes':dish_objects, 'account': account})
 
@@ -44,9 +44,10 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-
-        if Account.objects.filter(username=username, password=password).exists():
-            return redirect('better_menu')
+        account = Account.objects.filter(username=username, password=password)
+        if account: 
+            a = Account.objects.get(username=username, password=password)
+            return redirect('better_menu', pk = a.pk)
         else:
             error_message = 'Invalid login.'
     return render(request, 'tapasapp/login.html', {'error_message': error_message})
