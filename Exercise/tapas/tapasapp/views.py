@@ -72,4 +72,23 @@ def signup_view(request):
 def manage_account(request, pk): 
     account = get_object_or_404(Account, pk = pk)
     return render(request, 'tapasapp/manage_account.html', {'account': account, 'current_account_pk': current_account_pk})
+
+def change_password(request, pk):
+    account = get_object_or_404(Account, pk=pk)
+    error_message = None
+
+    if request.method == 'POST':
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if current_password != account.password:
+            error_message = 'Current password is incorrect.'
+        elif new_password != confirm_password:
+            error_message = 'New passwords do not match.'
+        else:
+            Account.objects.filter(pk=pk).update(password=new_password)
+            return redirect('manage_account', pk=pk)
+
+    return render(request, 'tapasapp/change_password.html', {'account': account, 'error_message': error_message})
  
