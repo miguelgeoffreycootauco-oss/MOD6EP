@@ -6,9 +6,9 @@
         <div class = "card-header">Account Details</div>
         <div class = "card-body">
             <p>Username: {{ account.username }}</p>
-            <a href = "{% url 'change_password' pk = account.pk %}" class = "btn btn-primary">Change password</a>
-            <a href = "{% url 'delete_account' pk = account.pk %}" class = "btn btn-danger">Delete Account</a>
-            <a href = "{% url 'better_menu' pk = account.pk %}" class = "btn btn-secondary">Back</a>
+            <a href = "{% url 'change_password' pk=account.pk %}" class = "btn btn-primary">Change password</a>
+            <a href = "{% url 'delete_account' pk=account.pk %}" class = "btn btn-danger">Delete Account</a>
+            <a href = "{% url 'better_menu' pk=account.pk %}" class = "btn btn-secondary">Back</a>
         </div>
     </div>
 </div>

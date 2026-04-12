@@ -4,8 +4,10 @@ from .models import Account
 
 # Create your views here.
 
-
+current_account_pk = 0
 def better_menu(request, pk):
+    global current_account_pk
+    current_account_pk = pk
     account = get_object_or_404(Account, pk=pk) 
     dish_objects = Dish.objects.all()
     return render(request, 'tapasapp/better_list.html', {'dishes':dish_objects, 'account': account})
@@ -16,17 +18,17 @@ def add_menu(request):
         cooktime = request.POST.get('ctime')
         preptime = request.POST.get('ptime')
         Dish.objects.create(name=dishname, cook_time=cooktime, prep_time=preptime)
-        return redirect('better_menu')
+        return redirect('better_menu', pk=current_account_pk)
     else:
-        return render(request, 'tapasapp/add_menu.html')
+        return render(request, 'tapasapp/add_menu.html', {'current_account_pk': current_account_pk})
 
 def view_detail(request, pk):
     d = get_object_or_404(Dish, pk=pk)
-    return render(request, 'tapasapp/view_detail.html', {'d': d})
+    return render(request, 'tapasapp/view_detail.html', {'d': d, 'current_account_pk': current_account_pk})
 
 def delete_dish(request, pk):
     Dish.objects.filter(pk=pk).delete()
-    return redirect('better_menu')
+    return redirect('better_menu', pk=current_account_pk)
 
 def update_dish(request, pk):
     if(request.method=="POST"):
@@ -36,7 +38,7 @@ def update_dish(request, pk):
         return redirect('view_detail', pk=pk)
     else:
         d = get_object_or_404(Dish, pk=pk)
-        return render(request, 'tapasapp/update_menu.html', {'d':d})
+        return render(request, 'tapasapp/update_menu.html', {'d':d, 'current_account_pk': current_account_pk})
 
 def login_view(request):
     error_message = None
@@ -69,5 +71,5 @@ def signup_view(request):
 
 def manage_account(request, pk): 
     account = get_object_or_404(Account, pk = pk)
-    return render(request, 'tapasapp/manage_account.html', {'account': account})
+    return render(request, 'tapasapp/manage_account.html', {'account': account, 'current_account_pk': current_account_pk})
  
