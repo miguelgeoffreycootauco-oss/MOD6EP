@@ -6,8 +6,9 @@ from .models import Account
 
 
 def better_menu(request):
+    account = get_object_or_404(Account, pk = pk) 
     dish_objects = Dish.objects.all()
-    return render(request, 'tapasapp/better_list.html', {'dishes':dish_objects})
+    return render(request, 'tapasapp/better_list.html', {'dishes':dish_objects, 'account': account})
 
 def add_menu(request):
     if(request.method=="POST"):
@@ -64,3 +65,8 @@ def signup_view(request):
             return redirect('login')
 
     return render(request, 'tapasapp/signup.html', {'error_message': error_message})
+
+def manage_account(request, pk): 
+    account = get_object_or_404(Account, pk = pk)
+    return render(request, 'tapasapp/manage_account.html', {'account': account})
+ 

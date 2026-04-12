@@ -58,3 +58,28 @@ def change_password(request, pk):
         return redirect('manage_account', pk=pk)
     
     return render(request, 'MyInventoryApp/change_password.html', {'account': account_obj})
+
+def login_view(request): 
+    if request.method == "POST": 
+        username = request.POST.get('username') 
+        password = request.POST.get('password') 
+        account = Account.objects.filter(username = username, password = password)
+        if account: 
+            return redirect('view_supplier') 
+        else: 
+            return render(request, 'MyInventoryApp/login.html', {'error_message': 'Invalid login'})
+    return render(request, 'MyInventoryApp/login.html')
+
+def signup(request): 
+    if request.method == "POST":
+        username = request.POST.get('username') 
+        password = request.POST.get('password') 
+        existing= Account.objects.filter(username=username) 
+        if existing: 
+            return render(request, 'MyInventoryApp/signup.html', {'error_message': 'Account already exists'})
+        else: 
+            Account.objects.create(username = username, password = password) 
+            return render(request, 'MyInventoryApp/login.html', {'success_message': 'Account created successfully'}) 
+    return render(request, 'MyInventoryApp/signup.html')
+
+    
