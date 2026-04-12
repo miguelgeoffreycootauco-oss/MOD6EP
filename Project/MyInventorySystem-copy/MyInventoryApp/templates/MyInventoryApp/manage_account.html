@@ -1,0 +1,31 @@
+{% extends 'MyInventoryApp/base.html' %}
+
+{% block content %}
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="p-3 text-white text-center" style="background-color: #590404; border-radius: 5px 5px 0 0;">
+        <h4 class="mb-0">Manage Account</h4>
+    </div>
+
+    <div class="p-4 border bg-white shadow-sm" style="border-radius: 0 0 5px 5px;">
+        <div class="text-center mb-4">
+            <p class="lead">Username: <strong>{{ account.username }}</strong></p>
+        </div>
+
+        <div class="d-grid gap-3">
+            <a href="{% url 'change_password' account.pk %}" class="btn text-white" style="background-color: #590404;">
+                Change Password
+            </a>
+
+            <a href="{% url 'delete_account' account.pk %}" 
+               class="btn btn-outline-danger" 
+               onclick="return confirm('Are you sure you want to delete this account?')">
+                Delete Account
+            </a>
+
+            <a href="{% url 'view_bottles' %}" class="btn btn-outline-secondary">
+                Back
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
