@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Supplier, WaterBottle
 
 # Create your views here.
@@ -13,25 +13,25 @@ def view_bottles(request):
 
 def add_bottle(request):
     if request.method == 'POST':
-        sku = request.POST.get('sku')
-        brand = request.POST.get('brand')
-        cost = request.POST.get('cost')
-        size = request.POST.get('size')
-        mouth_size = request.POST.get('mouth_size')
-        color = request.POST.get('color')
-        quantity = request.POST.get('quantity')
-        supplier = request.POST.get('supplier')
-
+        sku_in = request.POST.get('sku')
+        brand_in = request.POST.get('brand')
+        cost_in = request.POST.get('cost')
+        size_in = request.POST.get('size')
+        mouth_size_in = request.POST.get('mouth_size')
+        color_in = request.POST.get('color')
+        quantity_in = request.POST.get('quantity')
+        supplier_id_in = request.POST.get('supplier')
+        supplier_obj = Supplier.objects.get(id=supplier_id_in)
         WaterBottle.objects.create(
-            sku=sku,
-            brand=brand,
-            cost=cost,
-            size=size,
-            mouth_size=mouth_size,
-            color=color,
-            quantity=quantity,
-            supplier_id=supplier
-        )
+            sku=sku_in, 
+            brand=brand_in, 
+            cost=cost_in, 
+            size=size_in, 
+            mouth_size=mouth_size_in, 
+            color=color_in, 
+            current_quantity=quantity_in, 
+            supplied_by=supplier_obj
+            )
         return redirect('view_bottles')
     
     all_suppliers = Supplier.objects.all()

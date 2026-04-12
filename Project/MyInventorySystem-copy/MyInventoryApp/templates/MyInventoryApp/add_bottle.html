@@ -2,55 +2,61 @@
 {% load static %}
 
 {% block content %}
-
-<div class="container">
-    <div class="card mx-auto w-75 border-danger">
-        <div class="card-header">
-            Add a new water bottle
-        </div>
-        <div class="card-body">
-            <form>
-                <div class="mb-3">
-                    <label class="form-label">SKU</label>
-                    <input type="text" class="form-control">
+<div class = "col-md-8 offset-md-2 mt-5">
+    <div class = "p-3 text-white" style = "background-color: #590404; border-radius: 5px 5px 0 0;">
+        <h2> Add Bottle </h2>
+    </div>
+    <div class = "p-4 border bg-white shadow-sm" style = "border-radius: 0 0 5px 5px;">
+        <form method = "POST" action = "{% url 'add_bottle' %}">
+            {% csrf_token %} 
+            <div class = "row">
+                <div class = "col-md-6 mb-3">
+                    <label class = "form-label"> SKU </label>
+                    <input type = "text" name = "sku" class = "form-control" required>
+                </div>
+                <div class = "col-md-6 mb-3">
+                    <label class = "form-label"> Brand </label>
+                    <input type = "text" name = "brand" class = "form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Brand</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Supplier</label>
-                    <select name = "supplier" class="form-select" required>
-                        <option value="" selected disabled>Select a supplier</option>
+                    <label class="form-label"> Supplier</label>
+                    <select name="supplier" class="form-select" required>
+                        <option value="" disabled selected> Select a supplier </option>
                         {% for s in suppliers %}
                             <option value="{{ s.id }}">{{ s.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Cost</label>
-                    <input type="number" class="form-control">
+                <div class = "col-md-4 mb-3">
+                    <label class = "form-label"> Cost </label>
+                    <input type = "number" name = "cost" class = "form-control" step="0.01" required>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Size</label>
-                    <input type="text" class="form-control">
+                <div class = "col-md-4 mb-3">
+                    <label class = "form-label"> Size </label>
+                    <input type = "text" name = "size" class = "form-control" required>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Mouth Size</label>
-                    <input type="text" class="form-control">
+                <div class = "col-md-4 mb-3">
+                    <label class = "form-label"> Mouth Size </label>
+                    <input type = "text" name = "mouth_size" class = "form-control" required>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Color</label>
-                    <input type="text" class="form-control">
+                <div class = "col-md-4 mb-3">
+                    <label class = "form-label"> Color </label>
+                    <input type = "text" name = "color" class = "form-control" required>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Current Quantity</label>
-                    <input type="number" class="form-control">
+                <div class = "col-md-4 mb-3">
+                    <label class = "form-label"> Quantity </label>
+                    <input type = "number" name = "quantity" class = "form-control" required>
                 </div>
-                <button type="submit" class="btn btn-danger">Add Bottle</button>
-            </form>
-        </div>
+                <div class = "d-flex justify-content-between mt-4">
+                    <button type = "submit" class = "btn text-white px-4" style = "background-color: #590404;">
+                        Add Bottle
+                    </button>
+                    <a href="{% url 'view_bottles' %}" class = "btn btn-outline-secondary px-4">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-
 {% endblock %}
