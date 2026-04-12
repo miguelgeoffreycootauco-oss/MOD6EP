@@ -1,0 +1,47 @@
+{% extends 'MyInventoryApp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card mx-auto w-75 border-danger">
+        <div class="card-header">
+            Add a new water bottle
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">SKU</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Brand</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Cost</label>
+                    <input type="number" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Size</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Mouth Size</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Color</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Current Quantity</label>
+                    <input type="number" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-danger">Add Bottle</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

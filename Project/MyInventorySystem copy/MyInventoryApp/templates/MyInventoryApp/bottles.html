@@ -1,0 +1,19 @@
+{% extends 'MyInventoryApp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="card mx-auto w-75 border-danger">
+        <div class="card-header">
+            Water Bottles
+        </div>
+        <div class="card-body" style="max-height: 600px; overflow-y: auto;">
+            {% for bottle in bottles %}
+                <ul class="list-group list-group">
+                    <li class="list-group-item">
+                    {{ bottle.sku }}: {{ bottle.brand }}, {{ bottle.mouth_size }}, {{ bottle.size }}, {{ bottle.color }}, supplied by {{ bottle.supplied_by.name }} - {{ bottle.cost }} : {{ bottle.current_quantity }}
+                    </li>
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
