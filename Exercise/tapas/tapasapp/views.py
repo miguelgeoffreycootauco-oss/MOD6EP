@@ -73,6 +73,11 @@ def manage_account(request, pk):
     account = get_object_or_404(Account, pk = pk)
     return render(request, 'tapasapp/manage_account.html', {'account': account, 'current_account_pk': current_account_pk})
 
+def delete_account(request, pk): 
+    account = get_object_or_404(Account, pk=pk)
+    account.delete()
+    return redirect('login')
+
 def change_password(request, pk):
     account = get_object_or_404(Account, pk=pk)
     error_message = None

@@ -27,4 +27,6 @@ urlpatterns = [
     path('menu/<int:pk>/update/', views.update_dish, name='update_dish'),  
     path('manage_account/<int:pk>/', views.manage_account, name='manage_account'),
     path('add_menu/', views.add_menu, name='add_menu'),
+    path('change_password/<int:pk>/', views.change_password, name='change_password'),
+    path('delete_account/<int:pk>/', views.delete_account, name='delete_account'),
 ]
