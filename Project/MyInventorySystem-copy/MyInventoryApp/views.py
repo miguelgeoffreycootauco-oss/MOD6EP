@@ -119,3 +119,14 @@ def index(request): # Or whatever your root view is named
     return render(request, 'MyInventoryApp/index.html', {
         'current_user_id': request.session.get('user_id')
     })
+
+def view_bottle_details(request, pk):
+    bottle = get_object_or_404(WaterBottle, pk=pk)
+    return render(request, 'MyInventoryApp/bottle_details.html', {
+        'bottle': bottle,
+        'current_user_id': request.session.get('user_id')
+    })
+
+def delete_bottle(request, pk):
+    WaterBottle.objects.filter(pk=pk).delete()
+    return redirect('view_bottles')
