@@ -6,13 +6,6 @@ current_account_pk = 0
 
 def view_supplier(request):
     suppliers = Supplier.objects.all()
-<<<<<<< HEAD:Project/MyInventorySystem-copy/MyInventoryApp/views.py
-    return render(request, 'MyInventoryApp/supplier.html', {'suppliers': suppliers, 'current_account_pk': current_account_pk})
-
-def view_bottles(request):
-    bottles = WaterBottle.objects.all()
-    return render(request, 'MyInventoryApp/bottles.html', {'bottles': bottles, 'current_account_pk': current_account_pk})
-=======
     return render(request, 'MyInventoryApp/supplier.html', {
         'suppliers': suppliers,
         'current_user_id': request.session.get('user_id')
@@ -24,7 +17,6 @@ def view_bottles(request):
         'bottles': bottles,
         'current_user_id': request.session.get('user_id')
     })
->>>>>>> c7845a12ba6b0416620fd356e0c9ecf39bc78276:M6P-DjangoForms-AceroCootaucoJose/MyInventorySystem-copy/MyInventoryApp/views.py
 
 def add_bottle(request):
     if request.method == 'POST':
@@ -49,24 +41,16 @@ def add_bottle(request):
             )
         return redirect('view_bottles')
     all_suppliers = Supplier.objects.all()
-<<<<<<< HEAD:Project/MyInventorySystem-copy/MyInventoryApp/views.py
-    return render(request, 'MyInventoryApp/add_bottle.html', {'suppliers': all_suppliers, 'current_account_pk': current_account_pk})
-
-=======
     return render(request, 'MyInventoryApp/add_bottle.html', {
         'suppliers': all_suppliers,
         'current_user_id': request.session.get('user_id')
     })
     
->>>>>>> c7845a12ba6b0416620fd356e0c9ecf39bc78276:M6P-DjangoForms-AceroCootaucoJose/MyInventorySystem-copy/MyInventoryApp/views.py
 def manage_account(request, pk):
     if not request.session.get('user_id'):
         return redirect('login')
         
     account_obj = get_object_or_404(Account, pk=pk)
-<<<<<<< HEAD:Project/MyInventorySystem-copy/MyInventoryApp/views.py
-    return render(request, 'MyInventoryApp/manage_account.html', {'account': account_obj, 'current_account_pk': current_account_pk})
-=======
     return render(request, 'MyInventoryApp/manage_account.html', {
         'account': account_obj,
         'current_user_id': request.session.get('user_id')
@@ -97,7 +81,6 @@ def change_password(request, pk):
         'error': error,
         'current_user_id': request.session.get('user_id')
     })
->>>>>>> c7845a12ba6b0416620fd356e0c9ecf39bc78276:M6P-DjangoForms-AceroCootaucoJose/MyInventorySystem-copy/MyInventoryApp/views.py
 
 def delete_account(request, pk):
     account_obj = get_object_or_404(Account, pk=pk)
@@ -107,31 +90,9 @@ def delete_account(request, pk):
         
     return redirect('login')
 
-<<<<<<< HEAD:Project/MyInventorySystem-copy/MyInventoryApp/views.py
-def change_password(request, pk):
-    account_obj = get_object_or_404(Account, pk=pk)
-    if request.method == 'POST':
-        new_password = request.POST.get('new_password')
-        account_obj.password = new_password
-        account_obj.save()
-        return redirect('manage_account', pk=pk)
-    
-    return render(request, 'MyInventoryApp/change_password.html', {'account': account_obj, 'current_account_pk': current_account_pk})
-
-=======
->>>>>>> c7845a12ba6b0416620fd356e0c9ecf39bc78276:M6P-DjangoForms-AceroCootaucoJose/MyInventorySystem-copy/MyInventoryApp/views.py
 def login_view(request): 
     global current_account_pk
     if request.method == "POST": 
-<<<<<<< HEAD:Project/MyInventorySystem-copy/MyInventoryApp/views.py
-        username = request.POST.get('username') 
-        password = request.POST.get('password') 
-        account = Account.objects.filter(username = username, password = password)
-        if account: 
-            a = Account.objects.get(username=username, password=password)
-            current_account_pk = a.pk
-            return redirect('view_supplier') 
-=======
         u = request.POST.get('username') 
         p = request.POST.get('password') 
         account_results = Account.objects.filter(username=u, password=p)
@@ -140,7 +101,6 @@ def login_view(request):
             user_obj = account_results.first()
             request.session['user_id'] = user_obj.id 
             return redirect('view_bottles') 
->>>>>>> c7845a12ba6b0416620fd356e0c9ecf39bc78276:M6P-DjangoForms-AceroCootaucoJose/MyInventorySystem-copy/MyInventoryApp/views.py
         else: 
             return render(request, 'MyInventoryApp/login.html', {'error': 'Invalid login'})
     return render(request, 'MyInventoryApp/login.html')
