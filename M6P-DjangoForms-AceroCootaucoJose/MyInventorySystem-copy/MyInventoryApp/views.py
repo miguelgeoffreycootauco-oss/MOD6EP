@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Supplier, WaterBottle, Account
 
 # Create your views here.
-current_account_pk = 0
+
 
 def view_supplier(request):
     suppliers = Supplier.objects.all()
@@ -100,7 +100,7 @@ def login_view(request):
         if account_results.exists(): 
             user_obj = account_results.first()
             request.session['user_id'] = user_obj.id 
-            return redirect('view_bottles') 
+            return redirect('view_supplier') 
         else: 
             return render(request, 'MyInventoryApp/login.html', {'error': 'Invalid login'})
     return render(request, 'MyInventoryApp/login.html')
