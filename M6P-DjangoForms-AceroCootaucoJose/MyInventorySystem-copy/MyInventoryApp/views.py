@@ -42,7 +42,7 @@ def add_bottle(request):
     all_suppliers = Supplier.objects.all()
     return render(request, 'MyInventoryApp/add_bottle.html', {
         'suppliers': all_suppliers,
-        'current_user_id': request.session.get('user_id') # ADD THIS
+        'current_user_id': request.session.get('user_id')
     })
     
 def manage_account(request, pk):
@@ -115,7 +115,7 @@ def signup(request):
             return render(request, 'MyInventoryApp/login.html', {'success_message': 'Account created successfully'}) 
     return render(request, 'MyInventoryApp/signup.html')
 
-def index(request): # Or whatever your root view is named
+def index(request):
     return render(request, 'MyInventoryApp/index.html', {
         'current_user_id': request.session.get('user_id')
     })
