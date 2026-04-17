@@ -2,14 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Supplier, WaterBottle, Account
 
 # Create your views here.
+current_account_pk = 0
 
 def view_supplier(request):
     suppliers = Supplier.objects.all()
-    return render(request, 'MyInventoryApp/supplier.html', {'suppliers': suppliers})
+    return render(request, 'MyInventoryApp/supplier.html', {'suppliers': suppliers, 'current_account_pk': current_account_pk})
 
 def view_bottles(request):
     bottles = WaterBottle.objects.all()
-    return render(request, 'MyInventoryApp/bottles.html', {'bottles': bottles})
+    return render(request, 'MyInventoryApp/bottles.html', {'bottles': bottles, 'current_account_pk': current_account_pk})
 
 def add_bottle(request):
     if request.method == 'POST':
@@ -35,11 +36,11 @@ def add_bottle(request):
         return redirect('view_bottles')
     
     all_suppliers = Supplier.objects.all()
-    return render(request, 'MyInventoryApp/add_bottle.html', {'suppliers': all_suppliers})
+    return render(request, 'MyInventoryApp/add_bottle.html', {'suppliers': all_suppliers, 'current_account_pk': current_account_pk})
 
 def manage_account(request, pk):
     account_obj = get_object_or_404(Account, pk=pk)
-    return render(request, 'MyInventoryApp/manage_account.html', {'account': account_obj})
+    return render(request, 'MyInventoryApp/manage_account.html', {'account': account_obj, 'current_account_pk': current_account_pk})
 
 def delete_account(request, pk):
     account_obj = get_object_or_404(Account, pk=pk)
@@ -57,14 +58,17 @@ def change_password(request, pk):
         account_obj.save()
         return redirect('manage_account', pk=pk)
     
-    return render(request, 'MyInventoryApp/change_password.html', {'account': account_obj})
+    return render(request, 'MyInventoryApp/change_password.html', {'account': account_obj, 'current_account_pk': current_account_pk})
 
 def login_view(request): 
+    global current_account_pk
     if request.method == "POST": 
         username = request.POST.get('username') 
         password = request.POST.get('password') 
         account = Account.objects.filter(username = username, password = password)
         if account: 
+            a = Account.objects.get(username=username, password=password)
+            current_account_pk = a.pk
             return redirect('view_supplier') 
         else: 
             return render(request, 'MyInventoryApp/login.html', {'error_message': 'Invalid login'})
