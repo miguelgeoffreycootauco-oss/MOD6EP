@@ -88,7 +88,7 @@ def delete_account(request, pk):
     if 'user_id' in request.session:
         del request.session['user_id']
         
-    return redirect('login')
+    return redirect('login_view')
 
 def login_view(request): 
     global current_account_pk
@@ -102,7 +102,7 @@ def login_view(request):
             request.session['user_id'] = user_obj.id 
             return redirect('view_supplier') 
         else: 
-            return render(request, 'MyInventoryApp/login.html', {'error': 'Invalid login'})
+            return render(request, 'MyInventoryApp/login.html', {'error_message': 'Invalid login'})
     return render(request, 'MyInventoryApp/login.html')
 
 def signup(request): 
