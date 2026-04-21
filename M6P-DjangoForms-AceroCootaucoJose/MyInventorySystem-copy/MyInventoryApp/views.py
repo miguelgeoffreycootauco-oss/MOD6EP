@@ -3,6 +3,7 @@ from .models import Supplier, WaterBottle, Account
 
 # Create your views here.
 
+
 def view_supplier(request):
     suppliers = Supplier.objects.all()
     return render(request, 'MyInventoryApp/supplier.html', {
@@ -90,6 +91,7 @@ def delete_account(request, pk):
     return redirect('login')
 
 def login_view(request): 
+    global current_account_pk
     if request.method == "POST": 
         u = request.POST.get('username') 
         p = request.POST.get('password') 
@@ -98,7 +100,7 @@ def login_view(request):
         if account_results.exists(): 
             user_obj = account_results.first()
             request.session['user_id'] = user_obj.id 
-            return redirect('view_bottles') 
+            return redirect('view_supplier') 
         else: 
             return render(request, 'MyInventoryApp/login.html', {'error': 'Invalid login'})
     return render(request, 'MyInventoryApp/login.html')
